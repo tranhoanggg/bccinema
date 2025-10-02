@@ -1,0 +1,86 @@
+.footer {
+  margin-top: 136px;
+  background-color: #0f121a; /* xanh tối */
+  color: #fff;
+  padding: 40px 60px;
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(
+      90deg,
+      #ff0000,
+      #ff7b00,
+      #ffea00,
+      #39ff14,
+      #00ffff,
+      #3333ff,
+      #9d00ff
+    )
+    1;
+  box-shadow: 0 -2px 15px rgba(0, 255, 255, 0.7);
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.footer-divider {
+  width: 100px;
+  height: 5px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #7ee35c, #3cb94e);
+  margin-bottom: 16px;
+}
+
+.footer p {
+  font-size: 14px;
+  margin: 6px 0;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.right-img {
+  margin-top: 10px;
+  max-width: 180px;
+}
+
+.social-title {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+  font-size: 22px;
+}
+
+.social-icon {
+  cursor: pointer;
+  width: 36px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  color: #3cb94e;
+}
+
+.footer-item-has-link {
+  text-decoration: none;
+  color: white;
+}

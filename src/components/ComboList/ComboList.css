@@ -1,0 +1,210 @@
+.combo-list-container {
+  position: relative;
+  width: 90%;
+  margin: 104px auto 40px auto;
+  background-color: rgb(40, 43, 57);
+  border-radius: 12px;
+  padding: 30px;
+  color: white;
+  text-align: center;
+  overflow: visible;
+}
+
+.combo-list-title-inner {
+  display: inline-block;
+  color: #e9dede;
+  padding: 8px 20px;
+  border-radius: 22px;
+  border: 1px solid #fff;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  margin-bottom: 32px;
+}
+
+.combo-slider-viewport {
+  position: relative;
+  overflow: hidden;
+  margin-top: 22px;
+}
+
+.combo-track {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: transform 0.45s cubic-bezier(0.22, 0.9, 0.18, 1);
+}
+
+.combo-card {
+  overflow: hidden;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.combo-poster {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease;
+}
+
+.combo-poster:hover {
+  transform: scale(1.03);
+}
+
+.combo-name {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.combo-title {
+  margin-top: 6px;
+  font-size: 16px;
+  color: #ddd;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 👈 chỉ 3 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* dots & arrows giữ nguyên */
+.combolist.carousel-dots {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.combolist.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #bdbdbd;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.combolist.dot.active {
+  background: #f97316;
+  transform: scale(1.1);
+}
+
+.combolist.arrow {
+  height: 473px;
+  position: absolute;
+  top: calc(45% - 2px);
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  color: #72be43;
+  font-size: 40px;
+  padding: 10px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease, transform 0.2s ease;
+  z-index: 5;
+}
+
+.combolist.arrow.left {
+  left: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.combolist.arrow.right {
+  right: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.combolist.arrow.left:hover {
+  opacity: 0.8;
+  background: linear-gradient(
+    90deg,
+    rgba(68, 72, 91, 0.5) 0%,
+    rgba(232, 223, 223, 0) 100%
+  );
+}
+
+.combolist.arrow.right:hover {
+  opacity: 0.8;
+  background: linear-gradient(
+    90deg,
+    rgba(232, 223, 223, 0) 0%,
+    rgba(68, 72, 91, 0.5) 100%
+  );
+}
+
+.combolist.arrow:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.combolist.arrow.left::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0px; /* dịch ra ngoài để giống box-shadow */
+  transform: translateY(-50%);
+  width: 40px; /* độ rộng hiệu ứng bóng */
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(114, 190, 67, 0.7),
+    transparent 80%
+  );
+  filter: blur(12px); /* làm mờ như shadow */
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.combolist.arrow.right::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0px; /* dịch ra ngoài để giống box-shadow */
+  transform: translateY(-50%);
+  width: 40px; /* độ rộng hiệu ứng bóng */
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    rgba(114, 190, 67, 0.7),
+    transparent 80%
+  );
+  filter: blur(12px); /* làm mờ như shadow */
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.combolist.arrow.left:hover::before,
+.combolist.arrow.right:hover::before {
+  opacity: 1;
+}
+
+.combolist.arrow:active {
+  transform: translateY(-50%) scale(0.95); /* thu nhỏ nhẹ */
+}
+
+.combolist.arrow:active::before {
+  background: linear-gradient(
+    to right,
+    rgba(114, 190, 67, 0.9),
+    transparent 80%
+  );
+  filter: blur(16px); /* mạnh hơn khi nhấn */
+  opacity: 1;
+}

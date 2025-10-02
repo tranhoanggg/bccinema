@@ -1,0 +1,14 @@
+body {
+  background-color: #191b24;
+  color: #fff;
+}
+
+.navbar .nav-link {
+  color: #fff;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #f39c12 !important; /* vàng nổi bật khi hover/active */
+}
