@@ -247,7 +247,7 @@
   transition: transform 0.25s ease, background-color 0.25s ease;
 }
 .movielist.dot.active {
-  background: #4caf50;
+  background: #f97316;
   transform: scale(1.1);
 }
 
@@ -351,9 +351,19 @@
   transform: translateY(-50%) scale(0.95); /* thu nhỏ nhẹ */
 }
 
-.movielist.arrow:active::before {
+.movielist.arrow.left:active::before {
   background: linear-gradient(
     to right,
+    rgba(114, 190, 67, 0.9),
+    transparent 80%
+  );
+  filter: blur(16px); /* mạnh hơn khi nhấn */
+  opacity: 1;
+}
+
+.movielist.arrow.right:active::before {
+  background: linear-gradient(
+    to left,
     rgba(114, 190, 67, 0.9),
     transparent 80%
   );

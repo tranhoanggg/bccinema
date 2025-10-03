@@ -10,16 +10,89 @@
   overflow: visible;
 }
 
-.combo-list-title-inner {
+.combo-list-title {
+  position: relative;
   display: inline-block;
   color: #e9dede;
-  padding: 8px 20px;
+  padding: 12px 20px;
   border-radius: 22px;
-  border: 1px solid #fff;
   font-weight: 600;
   letter-spacing: 0.6px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
   margin-bottom: 32px;
+  overflow: hidden;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #f0f, 0 0 20px #0ff;
+  z-index: 10;
+}
+/* 1. Pseudo-element ::before: Tạo đường line xoay (Rotation Line) */
+.combo-list-title::before {
+  content: "";
+  position: absolute;
+  top: -50%; /* Đẩy lên cao hơn để đường line dễ xoay */
+  left: -50%; /* Đẩy sang trái hơn */
+  /* Kích thước lớn hơn phần tử cha để tạo hiệu ứng bao quanh mượt */
+  width: 200%;
+  height: 200%;
+  border-radius: 22px;
+
+  /* Tạo gradient (hiệu ứng line) */
+  background: conic-gradient(
+    transparent 0deg,
+    transparent 180deg,
+    #0ff 180deg,
+    /* Màu chính của đường chạy */ #f0f 220deg,
+    /* Một chút màu phụ để tạo điểm nhấn */ transparent 360deg
+  );
+
+  /* Bắt đầu animation xoay */
+  animation: border-rotate 4s linear infinite;
+  z-index: -2;
+}
+
+/* 2. Pseudo-element ::after: Tạo Mask (Cắt bỏ phần giữa và kiểm soát hiệu ứng dừng/phát sáng) */
+.combo-list-title::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border-radius: 22px;
+  background-color: rgb(40, 43, 57);
+
+  z-index: -1; /* Đặt giữa ::before và nội dung */
+
+  /* Bắt đầu animation kiểm soát hiệu ứng dừng và phát sáng */
+  animation: shine-pulse 4s linear infinite;
+}
+
+/* Keyframe để tạo hiệu ứng xoay mượt mà */
+@keyframes border-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Keyframe để kiểm soát hiệu ứng dừng và phát sáng */
+@keyframes shine-pulse {
+  /* 0% - 90%: Mask bình thường, không phát sáng */
+  0%,
+  90% {
+    box-shadow: inset 0 0 0 9999px transparent; /* Tắt phát sáng */
+  }
+
+  /* 90.01% - 95%: Bắt đầu phát sáng và đạt cường độ mạnh (tương đương 0.25s) */
+  90.01% {
+    /* Bắt đầu phát sáng mờ */
+    box-shadow: inset 0 0 5px #0ff, inset 0 0 10px #f0f;
+  }
+
+  /* 95% - 100%: Duy trì phát sáng mạnh (tương đương 0.25s) */
+  95%,
+  100% {
+    /* Phát sáng mạnh nhất, mô phỏng việc dừng lại và giữ sáng */
+    box-shadow: inset 0 0 10px #0ff, inset 0 0 20px #f0f, inset 0 0 30px #0ff;
+  }
 }
 
 .combo-slider-viewport {
@@ -94,7 +167,7 @@
 }
 
 .combolist.dot.active {
-  background: #f97316;
+  background: #4caf50;
   transform: scale(1.1);
 }
 
@@ -199,9 +272,19 @@
   transform: translateY(-50%) scale(0.95); /* thu nhỏ nhẹ */
 }
 
-.combolist.arrow:active::before {
+.combolist.arrow.left:active::before {
   background: linear-gradient(
     to right,
+    rgba(114, 190, 67, 0.9),
+    transparent 80%
+  );
+  filter: blur(16px); /* mạnh hơn khi nhấn */
+  opacity: 1;
+}
+
+.combolist.arrow.right:active::before {
+  background: linear-gradient(
+    to left,
     rgba(114, 190, 67, 0.9),
     transparent 80%
   );

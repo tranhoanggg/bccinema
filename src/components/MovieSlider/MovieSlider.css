@@ -5,6 +5,91 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  --shine-width: 25%;
+  --end-L: 70%;
+  --end-R: 30%;
+  --light-color-L: 255, 213, 79;
+  --light-color-R: 255, 241, 118;
+}
+
+.movie-slider::after {
+  z-index: 100;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(var(--light-color-R), 0.5),
+    rgba(var(--light-color-R), 0.35),
+    transparent 70%
+  );
+  pointer-events: none;
+
+  clip-path: polygon(100% 0);
+
+  animation: spotlight-right 3s ease-in-out infinite alternate;
+}
+
+.movie-slider::before {
+  z-index: 100;
+
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(var(--light-color-L), 0.5),
+    rgba(var(--light-color-L), 0.35),
+    transparent 70%
+  );
+  pointer-events: none;
+
+  clip-path: polygon(0 0);
+
+  animation: spotlight-left 3s ease-in-out infinite alternate;
+}
+
+@keyframes spotlight-right {
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+
+  50% {
+    clip-path: polygon(
+      100% 0,
+      100% 0,
+      var(--end-R) 100%,
+      calc(var(--end-R) + var(--shine-width)) 100%
+    );
+  }
+
+  100% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+}
+
+@keyframes spotlight-left {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  50% {
+    clip-path: polygon(
+      0 0,
+      0 0,
+      var(--end-L) 100%,
+      calc(var(--end-L) - var(--shine-width)) 100%
+    );
+  }
+
+  100% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
 }
 
 .slider-img-wrapper {
@@ -54,31 +139,126 @@
 
 /* Nút prev / next */
 .nav-btn {
-  position: absolute;
   height: 100%;
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: transparent;
-  color: transparent;
+  background: rgba(0, 0, 0, 0.55);
   border: none;
   outline: none;
-  font-size: 2rem;
+  color: #72be43;
+  font-size: 40px;
+  padding: 20px;
   cursor: pointer;
-  padding: 10px 20px;
-  z-index: 10;
-  transition: background 0.3s;
-}
-
-.nav-btn:hover {
-  color: rgba(255, 255, 255, 1);
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease, transform 0.2s ease;
+  z-index: 5;
 }
 
 .prev {
-  left: 0;
+  left: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.next {
+  right: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.next {
-  right: 0;
+.prev:hover,
+.next:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.prev::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0px; /* dịch ra ngoài để giống box-shadow */
+  transform: translateY(-50%);
+  width: 40px; /* độ rộng hiệu ứng bóng */
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(114, 190, 67, 0.7),
+    transparent 80%
+  );
+  filter: blur(12px); /* làm mờ như shadow */
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.next::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0px; /* dịch ra ngoài để giống box-shadow */
+  transform: translateY(-50%);
+  width: 40px; /* độ rộng hiệu ứng bóng */
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    rgba(114, 190, 67, 0.7),
+    transparent 80%
+  );
+  filter: blur(12px); /* làm mờ như shadow */
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.prev:hover::before,
+.next:hover::before {
+  opacity: 1;
+}
+
+.prev:hover {
+  opacity: 0.8;
+  background: linear-gradient(
+    90deg,
+    rgba(68, 72, 91, 0.5) 0%,
+    rgba(232, 223, 223, 0) 100%
+  );
+}
+
+.next:hover {
+  opacity: 0.8;
+  background: linear-gradient(
+    90deg,
+    rgba(232, 223, 223, 0) 0%,
+    rgba(68, 72, 91, 0.5) 100%
+  );
+}
+
+.prev:active,
+.next:active {
+  transform: translateY(-50%) scale(0.95); /* thu nhỏ nhẹ */
+}
+
+.prev:active::before {
+  background: linear-gradient(
+    to right,
+    rgba(114, 190, 67, 0.9),
+    transparent 80%
+  );
+  filter: blur(16px); /* mạnh hơn khi nhấn */
+  opacity: 1;
+}
+
+.next:active::before {
+  background: linear-gradient(
+    to left,
+    rgba(114, 190, 67, 0.9),
+    transparent 80%
+  );
+  filter: blur(16px); /* mạnh hơn khi nhấn */
+  opacity: 1;
 }
 
 /* Thumbnail */

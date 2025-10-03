@@ -82,9 +82,7 @@ function ComboList() {
 
   return (
     <section className="combo-list-container">
-      <h2 className="combo-list-title">
-        <span className="combo-list-title-inner">COMBO ƯU ĐÃI</span>
-      </h2>
+      <h2 className="combo-list-title">COMBO ƯU ĐÃI</h2>
 
       <button className="combolist arrow left" onClick={prev}>
         <FaChevronLeft />

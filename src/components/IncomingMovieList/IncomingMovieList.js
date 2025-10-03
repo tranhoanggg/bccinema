@@ -122,9 +122,7 @@ function IncomingMovieList() {
 
   return (
     <section className="incoming-movie-list-container">
-      <h2 className="incoming-movie-list-title">
-        <span className="incoming-movie-list-title-inner">PHIM SẮP CHIẾU</span>
-      </h2>
+      <h2 className="incoming-movie-list-title">PHIM SẮP CHIẾU</h2>
 
       <button
         className="incomingmovielist arrow left"
