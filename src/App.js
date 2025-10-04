@@ -1,22 +1,24 @@
+import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/Navbar/Navbar";
-import MovieSlider from "./components/MovieSlider/MovieSlider";
-import MovieList from "./components/MovieList/MovieList";
-import ComboList from "./components/ComboList/ComboList";
-import EndowList from "./components/EndowList/EndowList";
-import IncomingMovieList from "./components/IncomingMovieList/IncomingMovieList";
 import Footer from "./components/Footer/Footer";
+import HomePage from "./components/HomePage/HomePage";
+import FilmsPage from "./components/FilmsPage/FilmsPage";
+import GoodsPage from "./components/GoodsPage/GoodsPage";
+import Membership from "./components/Membership/Membership";
 
 function App() {
   return (
     <Router>
       <NavigationBar />
-      <MovieSlider />
-      <MovieList />
-      <ComboList />
-      <EndowList />
-      <IncomingMovieList />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/films" element={<FilmsPage />} />
+        <Route path="/goods" element={<GoodsPage />} />
+        <Route path="/goods" element={<GoodsPage />} />
+        <Route path="/membership" element={<Membership />} />
+      </Routes>
       <Footer />
     </Router>
   );

@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 
 function MovieList() {
-  const [films, setFilms] = useState([]);
+  const [films, setMovies] = useState([]);
   const [offsetIndex, setOffsetIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +24,7 @@ function MovieList() {
   useEffect(() => {
     fetch("http://localhost:5000/films")
       .then((r) => r.json())
-      .then((data) => setFilms(data || []))
+      .then((data) => setMovies(data || []))
       .catch((e) => console.error(e));
   }, []);
 

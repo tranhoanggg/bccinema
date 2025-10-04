@@ -160,15 +160,15 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #bdbdbd;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.25s ease, background-color 0.25s ease;
+  background: #6b7280;
+  transition: all 0.35s ease;
 }
 
 .combolist.dot.active {
-  background: #4caf50;
-  transform: scale(1.1);
+  width: 22px;
+  border-radius: 20px;
+  background: rgb(76, 175, 80);
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.7);
 }
 
 .combolist.arrow {

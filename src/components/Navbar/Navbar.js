@@ -15,17 +15,17 @@ const NavigationBar = () => {
 
         {/* Menu */}
         <Nav className="navbar-menu fw-bold">
-          <Nav.Link as={NavLink} to="/homepage" className="navbar-item" end>
+          <Nav.Link as={NavLink} to="/" className="navbar-item" end>
             TRANG CHỦ
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/movies" className="navbar-item" end>
+          <Nav.Link as={NavLink} to="/films" className="navbar-item" end>
             PHIM
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/food" className="navbar-item" end>
+          <Nav.Link as={NavLink} to="/goods" className="navbar-item" end>
             ĐỒ ĂN & THỨC UỐNG
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/promotions" className="navbar-item" end>
-            ƯU ĐÃI & KHUYẾN MÃI
+          <Nav.Link as={NavLink} to="/membership" className="navbar-item" end>
+            QUYỀN LỢI
           </Nav.Link>
         </Nav>
         <Nav.Link as={NavLink} to="/members" className="member-btn">
