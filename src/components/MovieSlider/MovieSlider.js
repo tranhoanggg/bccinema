@@ -28,16 +28,6 @@ function MovieSlider() {
     return () => clearInterval(interval);
   }, []);
 
-  // Bảng màu NEON/CYBERPUNK
-  const COLOR_PALETTES = [
-    // [R_Left, G_Left, B_Left], [R_Right, G_Right, B_Right]
-    ["0, 255, 255", "255, 0, 255"], // Cyan - Magenta (Cyberpunk cổ điển)
-    ["255, 255, 0", "255, 0, 0"], // Vàng - Đỏ (Ấm áp)
-    ["100, 255, 255", "255, 100, 255"], // Xanh nhạt - Hồng nhạt (Pastel Neon)
-    ["255, 179, 0", "0, 255, 179"], // Vàng cam - Aqua (Sân khấu)
-    ["255, 69, 0", "153, 50, 204"], // Đỏ cam - Tím (Sân khấu kịch tính)
-  ];
-
   // Khai báo useRef để tham chiếu đến element DOM
   const sliderRef = useRef(null);
 
@@ -46,10 +36,6 @@ function MovieSlider() {
     // Lấy element từ useRef, đảm bảo nó tồn tại
     const slider = sliderRef.current;
     if (!slider) return;
-
-    console.log(
-      "MovieSlider component mounted, starting random animation logic."
-    );
 
     // Định nghĩa khoảng ngẫu nhiên (Giữ nguyên logic của bạn)
     const RANGE_LEFT_MIN = 50;
@@ -68,19 +54,6 @@ function MovieSlider() {
 
       slider.style.setProperty("--end-L", `${newEndL}%`);
       slider.style.setProperty("--end-R", `${newEndR}%`);
-
-      // 2. Logic Random MÀU
-      const randomColorIndex = Math.floor(
-        Math.random() * COLOR_PALETTES.length
-      );
-      const [colorL, colorR] = COLOR_PALETTES[randomColorIndex];
-
-      slider.style.setProperty("--light-color-L", colorL);
-      slider.style.setProperty("--light-color-R", colorR);
-
-      // Đã sửa lỗi: Lần này console.log sẽ được in ra
-      console.log(`New End Points: Left=${newEndL}%, Right=${newEndR}%`);
-      console.log(`New Left Color: Left=${colorL}%, Right=${colorR}%`);
     }
 
     // Lắng nghe sự kiện animationiteration

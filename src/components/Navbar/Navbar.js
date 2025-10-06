@@ -2,9 +2,9 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import "./Navbar.css"; // import css riêng
+import "./Navbar.css";
 
-const NavigationBar = () => {
+const NavigationBar = ({ onMemberClick }) => {
   return (
     <Navbar expand="lg">
       <Container>
@@ -28,7 +28,15 @@ const NavigationBar = () => {
             QUYỀN LỢI
           </Nav.Link>
         </Nav>
-        <Nav.Link as={NavLink} to="/members" className="member-btn">
+        <Nav.Link
+          as={NavLink}
+          to="/login"
+          className="member-btn"
+          onClick={(e) => {
+            e.preventDefault();
+            if (onMemberClick) onMemberClick();
+          }}
+        >
           <i className="bi bi-person-fill"></i> Thành viên
         </Nav.Link>
       </Container>

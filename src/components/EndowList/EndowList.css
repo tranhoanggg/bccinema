@@ -12,24 +12,51 @@
   background: rgb(40, 43, 57);
   border-radius: 12px;
   padding: 28px;
-  color: white;
   box-sizing: border-box;
 }
 
 .endow-title {
   margin-top: 200px;
   width: 160px;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.2;
   margin-right: 28px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   text-align: left;
-  background: linear-gradient(180deg, #ff9b3c, #ff5a8a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-color: transparent;
+  color: #33ff77; /* neon green sáng vừa phải */
+
+  text-shadow: 0 0 2px #33ff77, 0 0 4px #33ff77, 0 0 8px #33ff77,
+    0 0 15px #33ff77;
+
+  /* animation flicker lâu hơn giữa các lần */
+  animation: neon-flicker 6s infinite;
+}
+
+@keyframes neon-flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 2px #33ff77, 0 0 4px #33ff77, 0 0 8px #33ff77,
+      0 0 10px #33ff77;
+  }
+  20%,
+  22%,
+  24%,
+  55% {
+    opacity: 0.6;
+    text-shadow: 0 0 1px #33ff77, 0 0 2px #33ff77, 0 0 4px #33ff77,
+      0 0 8px #33ff77;
+  }
 }
 
 .endow-slider-area {

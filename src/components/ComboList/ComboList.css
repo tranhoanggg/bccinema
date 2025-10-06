@@ -11,87 +11,54 @@
 }
 
 .combo-list-title {
-  position: relative;
   display: inline-block;
-  color: #e9dede;
-  padding: 12px 20px;
-  border-radius: 22px;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  margin-bottom: 32px;
-  overflow: hidden;
-  text-shadow: 0 0 5px #0ff, 0 0 10px #f0f, 0 0 20px #0ff;
-  z-index: 10;
-}
-/* 1. Pseudo-element ::before: Tạo đường line xoay (Rotation Line) */
-.combo-list-title::before {
-  content: "";
-  position: absolute;
-  top: -50%; /* Đẩy lên cao hơn để đường line dễ xoay */
-  left: -50%; /* Đẩy sang trái hơn */
-  /* Kích thước lớn hơn phần tử cha để tạo hiệu ứng bao quanh mượt */
-  width: 200%;
-  height: 200%;
-  border-radius: 22px;
-
-  /* Tạo gradient (hiệu ứng line) */
-  background: conic-gradient(
-    transparent 0deg,
-    transparent 180deg,
-    #0ff 180deg,
-    /* Màu chính của đường chạy */ #f0f 220deg,
-    /* Một chút màu phụ để tạo điểm nhấn */ transparent 360deg
+  background: linear-gradient(
+    145deg,
+    rgba(30, 30, 30, 0.95),
+    rgba(10, 10, 10, 0.85)
   );
+  color: #00ff66;
+  padding: 10px 28px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  margin-bottom: 22px;
+  font-size: 32px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
 
-  /* Bắt đầu animation xoay */
-  animation: border-rotate 4s linear infinite;
-  z-index: -2;
+  text-shadow: 2px 2px 0px #555, 4px 4px 4px #444, 6px 6px 8px #222,
+    8px 8px 12px rgba(0, 0, 0, 0.8);
 }
 
-/* 2. Pseudo-element ::after: Tạo Mask (Cắt bỏ phần giữa và kiểm soát hiệu ứng dừng/phát sáng) */
 .combo-list-title::after {
   content: "";
   position: absolute;
-  top: 6px;
-  left: 6px;
-  width: calc(100% - 12px);
-  height: calc(100% - 12px);
-  border-radius: 22px;
-  background-color: rgb(40, 43, 57);
-
-  z-index: -1; /* Đặt giữa ::before và nội dung */
-
-  /* Bắt đầu animation kiểm soát hiệu ứng dừng và phát sáng */
-  animation: shine-pulse 4s linear infinite;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: shine 3s infinite;
 }
 
-/* Keyframe để tạo hiệu ứng xoay mượt mà */
-@keyframes border-rotate {
-  to {
-    transform: rotate(360deg);
+@keyframes shine {
+  0% {
+    left: -75%;
   }
-}
-
-/* Keyframe để kiểm soát hiệu ứng dừng và phát sáng */
-@keyframes shine-pulse {
-  /* 0% - 90%: Mask bình thường, không phát sáng */
-  0%,
-  90% {
-    box-shadow: inset 0 0 0 9999px transparent; /* Tắt phát sáng */
+  50% {
+    left: 125%;
   }
-
-  /* 90.01% - 95%: Bắt đầu phát sáng và đạt cường độ mạnh (tương đương 0.25s) */
-  90.01% {
-    /* Bắt đầu phát sáng mờ */
-    box-shadow: inset 0 0 5px #0ff, inset 0 0 10px #f0f;
-  }
-
-  /* 95% - 100%: Duy trì phát sáng mạnh (tương đương 0.25s) */
-  95%,
   100% {
-    /* Phát sáng mạnh nhất, mô phỏng việc dừng lại và giữ sáng */
-    box-shadow: inset 0 0 10px #0ff, inset 0 0 20px #f0f, inset 0 0 30px #0ff;
+    left: 125%;
   }
 }
 

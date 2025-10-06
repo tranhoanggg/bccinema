@@ -17,7 +17,7 @@
     rgba(30, 30, 30, 0.95),
     rgba(10, 10, 10, 0.85)
   );
-  color: #fff;
+  color: #00ff66;
   padding: 10px 28px;
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -209,8 +209,8 @@
 .incomingmovielist.dot.active {
   width: 22px;
   border-radius: 20px;
-  background: linear-gradient(90deg, #ff8a00, #e52e71);
-  box-shadow: 0 0 6px rgba(255, 138, 0, 0.7);
+  background: rgb(76, 175, 80);
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.7);
 }
 
 /* arrows */

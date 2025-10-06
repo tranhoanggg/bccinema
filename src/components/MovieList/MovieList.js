@@ -127,9 +127,7 @@ function MovieList() {
 
   return (
     <section className="movie-list-container">
-      <h2 className="movie-list-title">
-        <span className="movie-list-title-inner">PHIM ĐANG CHIẾU</span>
-      </h2>
+      <h2 className="movie-list-title">PHIM ĐANG CHIẾU</h2>
 
       <button className="movielist arrow left" onClick={prev} aria-label="Prev">
         <FaChevronLeft />

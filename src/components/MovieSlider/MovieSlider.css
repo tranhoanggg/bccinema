@@ -8,7 +8,7 @@
   --shine-width: 25%;
   --end-L: 70%;
   --end-R: 30%;
-  --light-color-L: 255, 213, 79;
+  --light-color-L: rgb(0, 255, 255);
   --light-color-R: 255, 241, 118;
 }
 
@@ -22,8 +22,8 @@
   height: 100%;
   background: radial-gradient(
     ellipse at top,
-    rgba(var(--light-color-R), 0.5),
-    rgba(var(--light-color-R), 0.35),
+    rgba(255, 234, 0, 0.5),
+    rgba(255, 234, 0, 0.35),
     transparent 70%
   );
   pointer-events: none;
@@ -44,8 +44,8 @@
   height: 100%;
   background: radial-gradient(
     ellipse at top,
-    rgba(var(--light-color-L), 0.5),
-    rgba(var(--light-color-L), 0.35),
+    rgba(255, 191, 0, 0.5),
+    rgba(255, 191, 0, 0.35),
     transparent 70%
   );
   pointer-events: none;
