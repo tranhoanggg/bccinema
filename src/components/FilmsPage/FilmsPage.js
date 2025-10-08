@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./FilmsPage.css";
-import { FaPlay, FaTicketAlt } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 
 const FilmsPage = () => {
+  const navigate = useNavigate();
   const [films, setFilms] = useState([]);
   const [activeTab, setActiveTab] = useState("showing"); // "showing" | "upcoming"
   const [showModal, setShowModal] = useState(false);
@@ -80,7 +82,10 @@ const FilmsPage = () => {
       <div className="films-grid">
         {films.map((film) => (
           <div key={film.ID} className="film-card">
-            <div className="film-poster">
+            <div
+              className="film-poster"
+              onClick={() => navigate(`/film/${film.ID}`)}
+            >
               <img
                 className="film-image"
                 alt={film.name}

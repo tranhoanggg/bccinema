@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MovieList.css";
 import {
   FaPlay,
@@ -8,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 function MovieList() {
+  const navigate = useNavigate();
   const [films, setMovies] = useState([]);
   const [offsetIndex, setOffsetIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
@@ -170,7 +172,7 @@ function MovieList() {
                 />
                 <div
                   className="poster-wrapper"
-                  onClick={() => (window.location.href = `/film/${film.ID}`)}
+                  onClick={() => navigate(`/film/${film.ID}`)}
                 >
                   <img
                     className="movie-poster"
