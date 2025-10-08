@@ -18,8 +18,8 @@ function AppContent() {
     setShowLoading(true);
     setTimeout(() => {
       setShowLoading(false);
-      navigate("/login"); // <-- chuyển trang
-    }, 3000);
+      navigate("/login");
+    }, 3200);
   };
 
   return (
@@ -28,7 +28,6 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/films" element={<FilmsPage />} />
-        <Route path="/goods" element={<GoodsPage />} />
         <Route path="/goods" element={<GoodsPage />} />
         <Route path="/membership" element={<Membership />} />
         <Route path="/login" element={<LoginPopup />} />

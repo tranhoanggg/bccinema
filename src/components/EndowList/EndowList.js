@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./EndowList.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import EndowPopup from "./EndowPopup";
 
 function EndowList() {
   const [endows, setEndows] = useState([]);
   const [index, setIndex] = useState(0);
   const [transition, setTransition] = useState(true);
+  const [selectedId, setSelectedId] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const itemsPerPage = 3;
 
@@ -67,6 +70,16 @@ function EndowList() {
   // tính offset %
   const offsetPercent = (100 / itemsPerPage) * index;
 
+  const handleOpenPopup = (id) => {
+    setSelectedId(id);
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setTimeout(() => setSelectedId(null), 400); // đợi animation kết thúc
+  };
+
   return (
     <section className="endow-section">
       <div className="endow-container">
@@ -96,7 +109,7 @@ function EndowList() {
                 <article
                   key={`${item.ID}-${idx}`}
                   className="endow-card"
-                  onClick={() => (window.location.href = `/endow/${item.ID}`)}
+                  onClick={() => handleOpenPopup(item.ID)}
                 >
                   <img
                     className="endow-poster"
@@ -119,6 +132,8 @@ function EndowList() {
           )}
         </div>
       </div>
+
+      {showPopup && <EndowPopup id={selectedId} onClose={handleClosePopup} />}
     </section>
   );
 }

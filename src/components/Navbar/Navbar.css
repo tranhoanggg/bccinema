@@ -75,6 +75,7 @@
   background-color: #f1f3f6;
   color: #111 !important;
   border-radius: 50px;
+  border-color: transparent;
   padding: 8px 18px;
   font-weight: 600;
   display: flex;
@@ -84,18 +85,20 @@
   transition: all 0.3s ease;
 }
 
-.navbar .nav-link.member-btn:hover {
-  color: #e80a0a !important;
-  background-color: rgba(224, 227, 231, 1);
+.navbar .member-btn:hover,
+.navbar .member-btn.active,
+.member-section:hover .member-btn {
+  color: rgb(0, 255, 153) !important;
+  background-color: rgba(0, 15, 10, 0.95);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgb(196 31 31 / 60%);
+  box-shadow: 0 4px 6px rgba(0, 255, 153, 0.6);
 }
 
-.navbar .nav-link.member-btn:active {
+.navbar .member-btn:active {
   transform: scale(0.95);
-  color: rgba(232, 10, 10, 0.8) !important;
-  background-color: rgba(224, 227, 231, 0.8);
-  box-shadow: 0 4px 12px rgb(196 31 31 / 60%);
+  color: rgba(0, 255, 153, 0.8) !important;
+  background-color: rgba(0, 255, 255, 0.4);
+  box-shadow: 0 4px 6px rgba(0, 255, 153, 0.6);
 }
 
 .navbar-menu {
@@ -108,4 +111,56 @@
 
 .member-btn {
   font-size: 20px;
+}
+
+.member-section {
+  position: relative;
+}
+
+/* Dropdown */
+.member-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: rgba(0, 15, 10, 0.95);
+  border: 1px solid rgba(0, 255, 153, 0.3);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 20px rgba(0, 255, 153, 0.25);
+  backdrop-filter: blur(6px);
+  width: 230px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  color: #00ff99;
+  padding: 10px 16px;
+  font-family: "Courier New", monospace;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 255, 153, 0.1);
+  color: #c4ffe0;
+}
+
+/* Animation */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide {
+  animation: slideDown 0.3s ease-out forwards;
 }
