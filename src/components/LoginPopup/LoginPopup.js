@@ -212,7 +212,10 @@ const LoginPopup = ({ onClose }) => {
                   setTimeout(() => {
                     setShowLoginSuccessVideo(false);
                     if (onClose) onClose();
-                    navigate("/");
+                    const redirectPath =
+                      localStorage.getItem("redirectAfterLogin") || "/";
+                    localStorage.removeItem("redirectAfterLogin");
+                    navigate(redirectPath);
                   }, 600); // khớp với thời gian overlayFadeOut
                 }, 400); // delay để popup ẩn trước
               }}

@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Goods.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function Goods() {
+  const navigate = useNavigate();
   const [goods, setGoods] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
   const [offsetIndex, setOffsetIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
   const viewportRef = useRef(null);
@@ -13,6 +16,43 @@ function Goods() {
   const itemsPerPage = 4;
   const gap = 20; // must match .goods-track { gap: 20px; }
   const [itemWidth, setItemWidth] = useState(220);
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (!userData) {
+      setCartCount(0);
+      return;
+    }
+
+    try {
+      const user = JSON.parse(userData);
+      if (user && user.ID) {
+        fetch(`http://localhost:5000/cart/${user.ID}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (Array.isArray(data)) {
+              // 🟩 Cộng tổng quantity của tất cả sản phẩm trong giỏ
+              const totalQuantity = data.reduce(
+                (sum, item) => sum + (item.quantity || 0),
+                0
+              );
+              setCartCount(totalQuantity);
+            } else {
+              setCartCount(0);
+            }
+          })
+          .catch((err) => {
+            console.error("Lỗi tải giỏ hàng:", err);
+            setCartCount(0);
+          });
+      } else {
+        setCartCount(0);
+      }
+    } catch (err) {
+      console.error("Lỗi đọc localStorage:", err);
+      setCartCount(0);
+    }
+  }, []);
 
   // load goods
   useEffect(() => {
@@ -104,12 +144,74 @@ function Goods() {
       : "none",
   };
 
+  // Hàm kiểm tra login
+  const checkLogin = () => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      // chưa đăng nhập → lưu lại trang hiện tại để quay lại
+      localStorage.setItem("redirectAfterLogin", "/goods");
+      navigate("/login");
+      return false;
+    }
+    return true;
+  };
+
+  // Xử lý click vào card / nút
+  const handleCardClick = (id) => {
+    if (!checkLogin()) return;
+    navigate(`/good/${id}`);
+  };
+
+  const handleAddToCart = (e, id) => {
+    e.stopPropagation();
+    if (!checkLogin()) return;
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.ID) return;
+
+    fetch("http://localhost:5000/cart/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: user.ID,
+        goods_id: id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.message);
+        // Cập nhật hiển thị số lượng giỏ hàng
+        setCartCount((prev) => prev + 1);
+      })
+      .catch((err) => console.error("Lỗi thêm giỏ hàng:", err));
+  };
+
+  const handleBuyNow = (e, id) => {
+    e.stopPropagation();
+    if (!checkLogin()) return;
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    fetch(`http://localhost:5000/cart/${user.ID}`)
+      .then((res) => res.json())
+      .then((cartItems) => {
+        navigate("/goodspayment", {
+          state: {
+            clickedId: id,
+            cartItems: cartItems || [],
+          },
+        });
+      })
+      .catch((err) => {
+        console.error("Lỗi khi lấy giỏ hàng:", err);
+      });
+  };
+
   return (
     <section className="goods-container">
       <button className="goods-title-inner">
         <span>GIỎ HÀNG</span>
-        <i class="bi bi-cart"></i>
-        <span className="goods-cart-quantity">1</span>
+        <i className="bi bi-cart"></i>
+        <span className="goods-cart-quantity">{cartCount}</span>
       </button>
 
       <button className="goods arrow left" onClick={prev} aria-label="Prev">
@@ -141,11 +243,9 @@ function Goods() {
                 key={`${good.ID}-${idx}`}
                 className="goods-card"
                 style={{ width: `${itemWidth}px`, minWidth: `${itemWidth}px` }}
+                onClick={() => handleCardClick(good.ID)}
               >
-                <div
-                  className="poster-wrapper"
-                  onClick={() => (window.location.href = `/good/${good.ID}`)}
-                >
+                <div className="poster-wrapper">
                   <div className="goods-poster-wrapper">
                     <img
                       className="goods-poster"
@@ -176,19 +276,13 @@ function Goods() {
                   <p className="goodspage-btn-wrapper">
                     <button
                       className="goodspage btn add"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.location.href = `/good/${good.ID}/buy`;
-                      }}
+                      onClick={(e) => handleAddToCart(e, good.ID)}
                     >
                       <span className="add-text">THÊM GIỎ HÀNG</span>
                     </button>
                     <button
                       className="goodspage btn buy"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.location.href = `/good/${good.ID}/buy`;
-                      }}
+                      onClick={(e) => handleBuyNow(e, good.ID)}
                     >
                       <span className="buy-text">MUA NGAY</span>
                     </button>

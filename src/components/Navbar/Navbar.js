@@ -12,6 +12,10 @@ const NavigationBar = ({ onMemberClick }) => {
 
   // ✅ Kiểm tra trạng thái đăng nhập khi load
   useEffect(() => {
+    // ✅ Kiểm tra localStorage ngay khi Navbar mount
+    const user = localStorage.getItem("user");
+    setIsLoggedIn(!!user);
+
     // cập nhật khi custom event phát ra (trong cùng tab)
     const onUserLogin = (e) => {
       setIsLoggedIn(true);

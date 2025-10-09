@@ -11,6 +11,7 @@ import LoginPopup from "./components/LoginPopup/LoginPopup";
 import LoadingPopup from "./components/LoadingPopup/LoadingPopup";
 import FilmDetailPage from "./components/FilmDetailPage/FilmDetailPage";
 import ComboDetailPage from "./components/ComboDetailPage/ComboDetailPage";
+import GoodsPaymentPage from "./components/GoodsPaymentPage/GoodsPaymentPage";
 
 function AppContent() {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ function AppContent() {
         <Route path="/login" element={<LoginPopup />} />
         <Route path="/film/:id" element={<FilmDetailPage />} />
         <Route path="/combo/:id" element={<ComboDetailPage />} />
+        <Route path="/goodspayment" element={<GoodsPaymentPage />} />
       </Routes>
       {showLoading && <LoadingPopup />}
       <Footer />

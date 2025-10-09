@@ -17,7 +17,7 @@
   font-size: 24px;
   letter-spacing: 1px;
   margin-top: 24px;
-  margin-bottom: 12px;
+  margin-bottom: 28px;
   margin-left: 1074px;
   position: relative;
   /* overflow: hidden; */
@@ -245,7 +245,6 @@
 
 .goodspage.btn.add {
   padding: 6px 12px;
-  margin-left: 6px;
 }
 
 .goodspage.btn.buy {
@@ -409,9 +408,9 @@
 
 /* arrows */
 .goods.arrow {
-  height: 292px;
+  height: 296px;
   position: absolute;
-  top: calc(39%);
+  top: calc(40% + 2px);
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.55);
   border: none;
