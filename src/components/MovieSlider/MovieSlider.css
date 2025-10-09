@@ -137,6 +137,35 @@
   padding: 10px 20px;
 }
 
+.movieslider.btn-success {
+  background-color: rgba(0, 255, 153, 0.6) !important;
+}
+
+.movieslider.btn-success:hover {
+  transform: translateY(-1px);
+  background-color: rgba(0, 255, 153, 0.8) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.4);
+}
+
+.movieslider.btn-success:active {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 255, 153, 0.6) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.4);
+}
+
+.movieslider.btn-outline-light:hover {
+  transform: translateY(-1px);
+  background: radial-gradient(circle at center, #000 60%, #001a0f);
+  color: rgba(0, 255, 153, 1);
+  border-color: rgba(0, 255, 153, 0.8);
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.6);
+}
+
+.movieslider.btn-outline-light:active {
+  color: rgba(0, 255, 153, 0.8);
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.4);
+}
+
 /* Nút prev / next */
 .nav-btn {
   height: 100%;

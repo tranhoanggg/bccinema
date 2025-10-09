@@ -10,6 +10,7 @@ import Membership from "./components/Membership/Membership";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import LoadingPopup from "./components/LoadingPopup/LoadingPopup";
 import FilmDetailPage from "./components/FilmDetailPage/FilmDetailPage";
+import ComboDetailPage from "./components/ComboDetailPage/ComboDetailPage";
 
 function AppContent() {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ function AppContent() {
         <Route path="/membership" element={<Membership />} />
         <Route path="/login" element={<LoginPopup />} />
         <Route path="/film/:id" element={<FilmDetailPage />} />
+        <Route path="/combo/:id" element={<ComboDetailPage />} />
       </Routes>
       {showLoading && <LoadingPopup />}
       <Footer />

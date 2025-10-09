@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ComboList.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function ComboList() {
+  const navigate = useNavigate();
   const [combos, setCombos] = useState([]);
   const [offsetIndex, setOffsetIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
@@ -103,6 +105,7 @@ function ComboList() {
                 key={`${combo.ID}-${idx}`}
                 className="combo-card"
                 style={{ width: `${itemWidth}px`, minWidth: `${itemWidth}px` }}
+                onClick={() => navigate(`/combo/${combo.ID}`)}
               >
                 <img
                   className="combo-poster"

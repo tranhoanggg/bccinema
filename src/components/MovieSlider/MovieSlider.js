@@ -113,10 +113,10 @@ function MovieSlider() {
               <div className="slider-content">
                 <h2 className="movie-title">{slide.title}</h2>
                 <div className="btn-group">
-                  <button className="btn btn-success me-2 slider-btn-buy">
+                  <button className="movieslider btn btn-success me-2 slider-btn-buy">
                     🎟 MUA VÉ NGAY
                   </button>
-                  <button className="btn btn-outline-light slider-btn-infor">
+                  <button className="movieslider btn btn-outline-light slider-btn-infor">
                     THÔNG TIN CHI TIẾT ℹ
                   </button>
                 </div>
