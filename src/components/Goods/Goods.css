@@ -226,6 +226,10 @@
 
 .goods-description {
   height: 48px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .goods-price {

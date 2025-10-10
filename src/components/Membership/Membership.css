@@ -3,7 +3,7 @@ p {
 }
 
 strong {
-  color: rgba(0, 255, 255, 0.8);
+  color: rgba(0, 255, 153, 0.8);
 }
 
 .membership-section {
@@ -16,7 +16,7 @@ strong {
 .membership-title {
   font-size: 3rem;
   font-weight: 700;
-  color: rgba(0, 255, 255, 0.8);
+  color: rgba(0, 255, 153, 0.8);
   letter-spacing: 2px;
   margin-bottom: 10px;
 }
@@ -89,9 +89,14 @@ strong {
   padding-left: 20px;
 }
 
+.membership-note li,
+.membership-warning li {
+  margin-bottom: 6px;
+}
+
 .membership-note li::before {
   content: "•";
-  color: rgba(0, 255, 255, 0.8);
+  color: rgba(0, 255, 153, 0.8);
   margin-right: 8px;
 }
 
