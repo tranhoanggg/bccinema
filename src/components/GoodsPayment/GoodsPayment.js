@@ -123,6 +123,7 @@ function GoodsPayment() {
     const orderData = {
       userId: user.ID,
       paymentMethod: selectedPayment,
+      pickupDate: pickupDate,
       paymentDay: new Date().toISOString().split("T")[0],
       items: goodsData.map((g) => ({
         goodsId: g.ID,

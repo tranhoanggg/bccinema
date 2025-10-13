@@ -156,12 +156,6 @@ function Goods() {
     return true;
   };
 
-  // Xử lý click vào card / nút
-  const handleCardClick = (id) => {
-    if (!checkLogin()) return;
-    navigate(`/good/${id}`);
-  };
-
   const handleAddToCart = (e, id) => {
     e.stopPropagation();
     if (!checkLogin()) return;
@@ -208,7 +202,10 @@ function Goods() {
 
   return (
     <section className="goods-container">
-      <button className="goods-title-inner">
+      <button
+        className="goods-title-inner"
+        onClick={(e) => handleBuyNow(e, null)}
+      >
         <span>GIỎ HÀNG</span>
         <i className="bi bi-cart"></i>
         <span className="goods-cart-quantity">{cartCount}</span>
@@ -243,7 +240,6 @@ function Goods() {
                 key={`${good.ID}-${idx}`}
                 className="goods-card"
                 style={{ width: `${itemWidth}px`, minWidth: `${itemWidth}px` }}
-                onClick={() => handleCardClick(good.ID)}
               >
                 <div className="poster-wrapper">
                   <div className="goods-poster-wrapper">

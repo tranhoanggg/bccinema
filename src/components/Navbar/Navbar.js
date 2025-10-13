@@ -107,7 +107,7 @@ const NavigationBar = ({ onMemberClick }) => {
               <div
                 className="dropdown-item"
                 onClick={() => {
-                  navigate("/profile");
+                  navigate("/updateprofile");
                   setShowMenu(false);
                 }}
               >

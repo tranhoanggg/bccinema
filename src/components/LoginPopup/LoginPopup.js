@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPopup.css";
 import poster from "../../assets/images/poster-login.jpg";
 
-const LoginPopup = ({ onClose }) => {
+const LoginPopup = () => {
   const [showLoginSuccessVideo, setShowLoginSuccessVideo] = useState(false);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState("Login");
@@ -71,10 +71,7 @@ const LoginPopup = ({ onClose }) => {
           // ✅ Lưu vào localStorage
           localStorage.setItem("user", JSON.stringify(data.user));
           window.dispatchEvent(new Event("user-logged-in"));
-          // ✅ Điều hướng về trang chủ
-          // navigate("/");
           // ✅ Đóng popup
-          if (onClose) onClose();
         } else {
           setWarnings([
             <span>
@@ -166,6 +163,36 @@ const LoginPopup = ({ onClose }) => {
     }
   };
 
+  const handleClose = (e) => {
+    e.stopPropagation();
+
+    // Lấy dữ liệu redirect từ localStorage
+    const redirectData = localStorage.getItem("redirectAfterLogin");
+    localStorage.removeItem("redirectAfterLogin");
+
+    if (!redirectData) {
+      // ❌ Không có redirect → quay về trang chủ
+      navigate("/");
+      return;
+    }
+
+    try {
+      // ✅ Thử parse JSON (trường hợp có state)
+      const parsed = JSON.parse(redirectData);
+
+      if (parsed.path) {
+        // Có cả path và state
+        navigate(parsed.path, { state: parsed.state });
+      } else {
+        // JSON parse được nhưng không có path — fallback an toàn
+        navigate("/");
+      }
+    } catch {
+      // ⚠️ Parse lỗi → nghĩa là redirectData chỉ là string (ví dụ "/goods")
+      navigate(redirectData);
+    }
+  };
+
   return (
     <div className="login-overlay">
       <video
@@ -211,11 +238,31 @@ const LoginPopup = ({ onClose }) => {
                   // Sau khi animation overlay kết thúc, điều hướng
                   setTimeout(() => {
                     setShowLoginSuccessVideo(false);
-                    if (onClose) onClose();
-                    const redirectPath =
-                      localStorage.getItem("redirectAfterLogin") || "/";
+                    const redirectData =
+                      localStorage.getItem("redirectAfterLogin");
                     localStorage.removeItem("redirectAfterLogin");
-                    navigate(redirectPath);
+
+                    if (!redirectData) {
+                      // ❌ Không có redirect → quay về trang chủ
+                      navigate("/");
+                      return;
+                    }
+
+                    try {
+                      // ✅ Thử parse JSON (trường hợp có state)
+                      const parsed = JSON.parse(redirectData);
+
+                      if (parsed.path) {
+                        // Có cả path và state
+                        navigate(parsed.path, { state: parsed.state });
+                      } else {
+                        // JSON parse được nhưng không có path — fallback an toàn
+                        navigate("/");
+                      }
+                    } catch {
+                      // ⚠️ Parse lỗi → nghĩa là redirectData chỉ là string (ví dụ "/goods")
+                      navigate(redirectData);
+                    }
                   }, 600); // khớp với thời gian overlayFadeOut
                 }, 400); // delay để popup ẩn trước
               }}
@@ -375,7 +422,12 @@ const LoginPopup = ({ onClose }) => {
                 )}
               </p>
 
-              <button className="close-btn" onClick={onClose}>
+              <button
+                className="close-btn"
+                onClick={(e) => {
+                  handleClose(e);
+                }}
+              >
                 <a
                   style={{ textDecoration: "none", color: "#00ff99" }}
                   href="/"

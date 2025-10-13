@@ -58,6 +58,27 @@ const FilmsPage = () => {
     }
   }
 
+  const handleBookNow = (filmId) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      // 🔹 Lưu tạm filmId để quay lại sau đăng nhập
+      localStorage.setItem(
+        "redirectAfterLogin",
+        JSON.stringify({
+          path: "/bookticket",
+          state: { filmId },
+        })
+      );
+
+      // 🔹 Chuyển sang trang đăng nhập
+      navigate("/login");
+    } else {
+      // 🔹 Người dùng đã đăng nhập → đi thẳng đến BookTicket
+      navigate("/bookticket", { state: { filmId } });
+    }
+  };
+
   return (
     <div className="films-page">
       {/* Tabs */}
@@ -113,7 +134,10 @@ const FilmsPage = () => {
             <p className="film-type">Thể loại: {film.type}</p>
             <button
               className="filmpage btn buy"
-              onClick={() => (window.location.href = `/buy-ticket/${film.ID}`)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleBookNow(film.ID);
+              }}
             >
               MUA VÉ
             </button>

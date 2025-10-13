@@ -4,10 +4,10 @@ import ComboDetail from "../ComboDetail/ComboDetail";
 
 function ComboDetailPage() {
   return (
-    <React.Fragment>
+    <div style={{ paddingBottom: 136 + "px" }}>
       <ComboDetail />
       <EndowList />
-    </React.Fragment>
+    </div>
   );
 }
 

@@ -4,10 +4,10 @@ import EndowList from "../EndowList/EndowList";
 
 function App() {
   return (
-    <React.Fragment>
+    <div style={{ paddingBottom: 136 + "px" }}>
       <Goods />
       <EndowList />
-    </React.Fragment>
+    </div>
   );
 }
 

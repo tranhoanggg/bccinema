@@ -127,6 +127,27 @@ function MovieList() {
       : "none",
   };
 
+  const handleBookNow = (filmId) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      // 🔹 Lưu tạm filmId để quay lại sau đăng nhập
+      localStorage.setItem(
+        "redirectAfterLogin",
+        JSON.stringify({
+          path: "/bookticket",
+          state: { filmId },
+        })
+      );
+
+      // 🔹 Chuyển sang trang đăng nhập
+      navigate("/login");
+    } else {
+      // 🔹 Người dùng đã đăng nhập → đi thẳng đến BookTicket
+      navigate("/bookticket", { state: { filmId } });
+    }
+  };
+
   return (
     <section className="movie-list-container">
       <h2 className="movie-list-title">PHIM ĐANG CHIẾU</h2>
@@ -196,7 +217,8 @@ function MovieList() {
                       className="btn buy"
                       onClick={(e) => {
                         e.stopPropagation();
-                        window.location.href = `/film/${film.ID}/buy`;
+
+                        handleBookNow(film.ID);
                       }}
                     >
                       <FaTicketAlt />
