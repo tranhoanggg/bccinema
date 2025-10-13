@@ -95,7 +95,7 @@
 }
 
 /* poster and hover dim */
-.poster-wrapper {
+.movie-card .poster-wrapper {
   position: relative;
   width: 100%;
   border-radius: 10px;

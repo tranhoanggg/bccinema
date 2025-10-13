@@ -150,7 +150,7 @@ function GoodsPayment({
               <strong>Email:</strong> {user.email}
             </p>
 
-            <h3>Phương thức thanh toán</h3>
+            <h3 style={{ marginTop: 18 + "px" }}>Phương thức thanh toán</h3>
             <div className="payment-options">
               {["momo", "shopeepay", "zalopay", "vnpay"].map((method) => (
                 <label key={method}>

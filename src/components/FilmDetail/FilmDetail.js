@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./FilmDetail.css";
 
 function FilmDetail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [film, setFilm] = useState(null);
 
@@ -54,6 +55,27 @@ function FilmDetail() {
     }
   }
 
+  const handleBookNow = (filmId) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      // 🔹 Lưu tạm filmId để quay lại sau đăng nhập
+      localStorage.setItem(
+        "redirectAfterLogin",
+        JSON.stringify({
+          path: "/bookticket",
+          state: { filmId },
+        })
+      );
+
+      // 🔹 Chuyển sang trang đăng nhập
+      navigate("/login");
+    } else {
+      // 🔹 Người dùng đã đăng nhập → đi thẳng đến BookTicket
+      navigate("/bookticket", { state: { filmId } });
+    }
+  };
+
   return (
     <section className="filmdetail-overlay">
       <div className="filmdetail-container">
@@ -97,7 +119,10 @@ function FilmDetail() {
 
           <button
             className="filmdetail btn buy"
-            onClick={() => (window.location.href = `/buy-ticket/${film.ID}`)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleBookNow(film.ID);
+            }}
           >
             MUA VÉ
           </button>

@@ -208,7 +208,7 @@ function GoodsPayment() {
               <strong>Email:</strong> {user.email}
             </p>
 
-            <h3>Nhận tại rạp vào ngày</h3>
+            <h3 style={{ marginTop: 18 + "px" }}>Nhận tại rạp vào ngày</h3>
             <input
               type="date"
               value={pickupDate}
@@ -216,7 +216,7 @@ function GoodsPayment() {
               className="date-input"
             />
 
-            <h3>Phương thức thanh toán</h3>
+            <h3 style={{ marginTop: 18 + "px" }}>Phương thức thanh toán</h3>
             <div className="payment-options">
               <label>
                 <input
