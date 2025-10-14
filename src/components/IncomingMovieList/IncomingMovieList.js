@@ -162,10 +162,7 @@ function IncomingMovieList() {
                 className="incoming-movie-card"
                 style={{ width: `${itemWidth}px`, minWidth: `${itemWidth}px` }}
               >
-                <div
-                  className="incoming-poster-wrapper"
-                  onClick={() => (window.location.href = `/film/${film.ID}`)}
-                >
+                <div className="incoming-poster-wrapper">
                   <img
                     className="incoming-movie-poster"
                     alt={film.name}

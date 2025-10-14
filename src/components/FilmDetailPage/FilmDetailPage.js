@@ -4,10 +4,10 @@ import FilmDetail from "../FilmDetail/FilmDetail";
 
 function FilmDetailPage() {
   return (
-    <React.Fragment>
+    <div style={{ paddingBottom: 136 + "px" }}>
       <FilmDetail />
       <EndowList />
-    </React.Fragment>
+    </div>
   );
 }
 
