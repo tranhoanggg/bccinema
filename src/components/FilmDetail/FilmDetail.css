@@ -195,3 +195,17 @@
   height: 640px;
   border: none;
 }
+
+.filmdetail-genre {
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: underline transparent;
+}
+
+.filmdetail-genre:hover {
+  color: #00ff66;
+  text-decoration: underline #00ff66;
+  transform: scale(1.05);
+}

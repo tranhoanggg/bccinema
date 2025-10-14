@@ -107,7 +107,19 @@ function FilmDetail() {
               <strong>Diễn viên:</strong> {film.actor}
             </p>
             <p>
-              <strong>Thể loại:</strong> {film.type}
+              <p>
+                <strong>Thể loại:</strong>{" "}
+                <span
+                  className="filmdetail-genre"
+                  onClick={() =>
+                    navigate("/films", {
+                      state: { selectedCategory: film.type },
+                    })
+                  }
+                >
+                  {film.type}
+                </span>
+              </p>
             </p>
             <p>
               <strong>Khởi chiếu:</strong> {film.start_day}

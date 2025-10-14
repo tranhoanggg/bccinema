@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./FilmsPage.css";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaSearch } from "react-icons/fa";
 
 const FilmsPage = () => {
   const navigate = useNavigate();
@@ -9,6 +9,19 @@ const FilmsPage = () => {
   const [activeTab, setActiveTab] = useState("showing"); // "showing" | "upcoming"
   const [showModal, setShowModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
+
+  const [filteredFilms, setFilteredFilms] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.selectedCategory) {
+      setSelectedCategory(location.state.selectedCategory);
+    }
+  }, [location.state]);
 
   // fetch films theo tab
   useEffect(() => {
@@ -21,11 +34,51 @@ const FilmsPage = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setFilms(data);
+        setFilteredFilms(data);
+        // lấy danh sách thể loại duy nhất
+        const uniqueTypes = [...new Set(data.map((f) => f.type))];
+        setCategories(uniqueTypes);
       })
       .catch((err) => console.error("Lỗi fetch films:", err));
   }, [activeTab]);
+
+  // Khi selectedCategory được set (vd: từ FilmDetail) -> lọc phim tương ứng
+  useEffect(() => {
+    if (selectedCategory && films.length > 0) {
+      const result = films.filter((f) => f.type === selectedCategory);
+      setFilteredFilms(result);
+    } else {
+      setFilteredFilms(films);
+    }
+  }, [selectedCategory, films]);
+
+  // Xử lý tìm kiếm theo tên phim (Enter hoặc icon)
+  const handleSearch = () => {
+    if (!searchText.trim()) {
+      setFilteredFilms(films);
+      return;
+    }
+    const result = films.filter((f) =>
+      f.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredFilms(result);
+    setSelectedCategory(""); // bỏ chọn thể loại nếu có
+  };
+
+  // Lọc theo thể loại
+  const handleCategoryChange = (e) => {
+    const cat = e.target.value;
+    setSelectedCategory(cat);
+    setSearchText(""); // bỏ text search khi chọn thể loại
+
+    if (!cat) {
+      setFilteredFilms(films);
+    } else {
+      const result = films.filter((f) => f.type === cat);
+      setFilteredFilms(result);
+    }
+  };
 
   // modal handling (no autoplay by default)
   const openModalWith = (link) => {
@@ -83,25 +136,54 @@ const FilmsPage = () => {
     <div className="films-page">
       {/* Tabs */}
       <div className="films-tabs">
-        <span
-          className={`tab ${activeTab === "upcoming" ? "active" : ""}`}
-          onClick={() => {
-            setActiveTab("upcoming");
-          }}
-        >
-          PHIM SẮP CHIẾU
+        <span style={{ "margin-right": "104px", "margin-left": "542px" }}>
+          <span
+            className={`tab ${activeTab === "upcoming" ? "active" : ""}`}
+            onClick={() => {
+              setActiveTab("upcoming");
+            }}
+          >
+            PHIM SẮP CHIẾU
+          </span>
+          <span
+            className={`tab ${activeTab === "showing" ? "active" : ""}`}
+            onClick={() => setActiveTab("showing")}
+          >
+            PHIM ĐANG CHIẾU
+          </span>
         </span>
-        <span
-          className={`tab ${activeTab === "showing" ? "active" : ""}`}
-          onClick={() => setActiveTab("showing")}
-        >
-          PHIM ĐANG CHIẾU
-        </span>
+
+        <div className="filter-bar">
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Tìm theo tên phim..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            />
+            <button onClick={handleSearch}>
+              <FaSearch />
+            </button>
+          </div>
+          <select
+            className="category-dropdown"
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+          >
+            <option value="">Tất cả thể loại</option>
+            {categories.map((c, i) => (
+              <option key={i} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Grid phim */}
       <div className="films-grid">
-        {films.map((film) => (
+        {filteredFilms.map((film) => (
           <div key={film.ID} className="film-card">
             <div
               className="film-poster"
