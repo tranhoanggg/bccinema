@@ -15,12 +15,17 @@ const UpdateProfile = () => {
   const [warnings, setWarnings] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // 🔹 Quản lý popup xác nhận hủy
+  const [canceling, setCanceling] = useState(null); // chứa item giao dịch đang chọn
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+
+  // 🔹 Popup thông báo hủy thành công
+  const [showCancelSuccess, setShowCancelSuccess] = useState(false);
+
   // ✅ Lấy user từ localStorage
   const user = JSON.parse(localStorage.getItem("user"));
 
-  // ===========================================
   // 🔹 Lấy thông tin người dùng hiện tại
-  // ===========================================
   useEffect(() => {
     if (user?.ID) {
       fetch(`http://localhost:5000/api/profile/${user.ID}`)
@@ -41,16 +46,13 @@ const UpdateProfile = () => {
     }
   }, []);
 
-  // ===========================================
   // 🔹 Lấy danh sách giao dịch
-  // ===========================================
-  useEffect(() => {
+  const loadTransactions = () => {
     if (user?.ID) {
       fetch(`http://localhost:5000/user-transactions/${user.ID}`)
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) {
-            // Sắp xếp giảm dần theo ngày
             const sorted = data.sort(
               (a, b) => new Date(b.date) - new Date(a.date)
             );
@@ -59,19 +61,19 @@ const UpdateProfile = () => {
         })
         .catch((err) => console.error("Lỗi tải giao dịch:", err));
     }
+  };
+
+  useEffect(() => {
+    loadTransactions();
   }, [user]);
 
-  // ===========================================
   // 🔹 Xử lý nhập liệu
-  // ===========================================
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ===========================================
   // 🔹 Submit cập nhật
-  // ===========================================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -132,6 +134,66 @@ const UpdateProfile = () => {
     }
   };
 
+  const handleCancelTransaction = (item) => {
+    setCanceling(item);
+    setShowConfirmPopup(true);
+  };
+
+  const confirmCancel = async () => {
+    if (!canceling) return;
+
+    let endpoint = "";
+
+    // Chọn API phù hợp dựa theo loại giao dịch
+    if (canceling.type === "Mua vé") {
+      endpoint = `http://localhost:5000/cancel-ticket/${
+        canceling.id[canceling.id.length - 1]
+      }`;
+    } else if (canceling.type === "Mua đồ ăn") {
+      endpoint = `http://localhost:5000/cancel-goods/${
+        canceling.id[canceling.id.length - 1]
+      }`;
+    } else if (
+      canceling.type === "Mua vé (có đồ ăn đi kèm)" ||
+      canceling.type === "Mua vé (kèm đồ ăn)"
+    ) {
+      endpoint = `http://localhost:5000/cancel-ticket-with-goods/${
+        canceling.id[canceling.id.length - 1]
+      }`;
+    } else {
+      alert("Không xác định được loại giao dịch để huỷ!");
+      return;
+    }
+
+    try {
+      const response = await fetch(endpoint, { method: "DELETE" });
+
+      if (response.ok) {
+        // Ẩn popup xác nhận
+        setShowConfirmPopup(false);
+
+        // Hiện popup thành công
+        setShowCancelSuccess(true);
+        setTimeout(() => {
+          setShowCancelSuccess(false);
+          setCanceling(null);
+          loadTransactions(); // reload bảng
+        }, 5000);
+      } else {
+        const data = await response.json();
+        alert(data.message || "Không thể huỷ giao dịch này!");
+      }
+    } catch (error) {
+      console.error("Lỗi huỷ giao dịch:", error);
+      alert("Không thể kết nối đến máy chủ!");
+    }
+  };
+
+  const closeConfirmPopup = () => {
+    setShowConfirmPopup(false);
+    setCanceling(null);
+  };
+
   return (
     <div className="update-profile-page">
       {/* Cảnh báo */}
@@ -155,7 +217,36 @@ const UpdateProfile = () => {
             Cập nhật thông tin thành công!
           </div>
         )}
+
+        {showCancelSuccess && (
+          <div className="update-profile-success-popup">
+            <span className="update-profile-success-icon">✅</span>
+            Đã huỷ giao dịch thành công. Cảm ơn bạn đã sử dụng dịch vụ!
+          </div>
+        )}
       </div>
+
+      {/* ====== Overlay + Popup xác nhận ====== */}
+      {showConfirmPopup && (
+        <div className="updateprofile overlay" onClick={closeConfirmPopup}>
+          <div className="confirm-popup" onClick={(e) => e.stopPropagation()}>
+            <h3>Bạn có chắc chắn muốn huỷ giao dịch?</h3>
+            <p>
+              Sau khi huỷ giao dịch, chúng tôi sẽ hoàn trả tiền đơn hàng vào số
+              tài khoản bạn đã thanh toán (có khấu trừ 10%).
+            </p>
+            <div className="confirm-buttons">
+              <button className="cancel-btn" onClick={closeConfirmPopup}>
+                Đóng
+              </button>
+              <button className="confirm-btn" onClick={confirmCancel}>
+                Đồng ý
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div
         className="update-left"
         style={{ backgroundImage: `url(${poster})` }}
@@ -237,7 +328,7 @@ const UpdateProfile = () => {
         </form>
 
         {/* Bảng giao dịch */}
-        <div style={{ height: "100vh" }}>
+        <div>
           <h3 className="transaction-title">Lịch sử giao dịch</h3>
           <table className="transaction-table">
             <thead>
@@ -246,6 +337,7 @@ const UpdateProfile = () => {
                 <th>Loại giao dịch</th>
                 <th>Ngày giao dịch</th>
                 <th>Tổng tiền (VNĐ)</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -261,6 +353,14 @@ const UpdateProfile = () => {
                     })}
                   </td>
                   <td>{Number(item.total).toLocaleString("vi-VN")}</td>
+                  <td>
+                    <button
+                      className="cancel-transaction-btn"
+                      onClick={() => handleCancelTransaction(item)}
+                    >
+                      Huỷ
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -299,3 +299,99 @@
 .update-right::-webkit-scrollbar-thumb:hover {
   background-color: #00ffaa99;
 }
+
+/* Overlay xác nhận huỷ */
+.updateprofile.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Popup xác nhận */
+.confirm-popup {
+  background: radial-gradient(circle at top, #001a12 0%, #000 90%);
+  padding: 30px;
+  border-radius: 12px;
+  width: 420px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 255, 153, 0.6);
+  animation: slideDown 0.4s ease;
+}
+
+.confirm-popup h3 {
+  margin-bottom: 12px;
+  color: #00ff99;
+}
+
+.confirm-popup p {
+  font-size: 14px;
+  color: #00ff99;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.cancel-btn,
+.confirm-btn {
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cancel-btn {
+  background: #fff;
+}
+
+.confirm-btn {
+  background: #e53935;
+  color: white;
+}
+
+.cancel-transaction-btn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-transaction-btn:hover {
+  background: #c62828;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
