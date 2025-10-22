@@ -109,17 +109,19 @@
 }
 
 /* Giới tính (radio buttons) */
-.login-radio {
+.updateprofile-radio {
   display: flex;
   align-items: center;
   gap: 10px;
   color: #00ff99;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.login-radio input[type="radio"] {
+.updateprofile-radio input[type="radio"] {
   accent-color: #00ffaa;
   transform: scale(1.2);
+  margin-left: 12px;
 }
 
 /* ================================
@@ -338,14 +340,14 @@
   line-height: 1.4;
 }
 
-.confirm-buttons {
+.updateprofile-confirm-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
 }
 
-.cancel-btn,
-.confirm-btn {
+.updateprofile-cancel-btn,
+.updateprofile-confirm-btn {
   border: none;
   padding: 8px 20px;
   border-radius: 8px;
@@ -353,13 +355,19 @@
   font-weight: 600;
 }
 
-.cancel-btn {
+.updateprofile-cancel-btn {
   background: #fff;
 }
 
-.confirm-btn {
-  background: #e53935;
+.updateprofile-confirm-btn {
+  background: rgba(229, 57, 53, 0.8);
   color: white;
+}
+
+.updateprofile-confirm-btn:hover {
+  background: rgba(229, 57, 53, 1);
+  box-shadow: 0 0 10px rgba(229, 57, 53, 0.8);
+  transform: scale(1.03);
 }
 
 .cancel-transaction-btn {

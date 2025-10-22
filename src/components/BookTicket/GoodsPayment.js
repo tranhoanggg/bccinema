@@ -175,7 +175,7 @@ function GoodsPayment({
             <button
               disabled={!isConfirmEnabled}
               onClick={handleConfirm}
-              className={`confirm-btn ${
+              className={`bookticket-confirm-btn ${
                 isConfirmEnabled ? "active" : "disabled"
               }`}
             >
@@ -198,7 +198,7 @@ function GoodsPayment({
         <div className={`success-overlay ${showPopup ? "active" : ""}`}>
           <div className={`success-popup ${showPopup ? "" : "hide"}`}>
             <h2>🎉 Thanh toán thành công!</h2>
-            <p>Cảm ơn bạn đã mua hàng.</p>
+            <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</p>
           </div>
         </div>
       )}

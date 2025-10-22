@@ -261,9 +261,9 @@ function GoodsPayment() {
             </label>
 
             <button
-              disabled={!selectedPayment || !agreed}
+              disabled={!selectedPayment || !agreed || goodsData.length === 0}
               onClick={handleConfirm}
-              className="confirm-btn"
+              className="goodspayment-confirm-btn"
             >
               XÁC NHẬN
             </button>
@@ -283,7 +283,7 @@ function GoodsPayment() {
         <div className={`success-overlay ${showPopup ? "active" : ""}`}>
           <div className={`success-popup ${showPopup ? "" : "hide"}`}>
             <h2>🎉 Thanh toán thành công!</h2>
-            <p>Cảm ơn bạn đã mua hàng.</p>
+            <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</p>
           </div>
         </div>
       )}

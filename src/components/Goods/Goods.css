@@ -414,7 +414,7 @@
 .goods.arrow {
   height: 296px;
   position: absolute;
-  top: calc(40% + 2px);
+  top: calc(41% + 4px);
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.55);
   border: none;

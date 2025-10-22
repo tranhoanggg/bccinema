@@ -285,9 +285,7 @@ const LoginPopup = () => {
 
             <div className="login-right">
               <h2 className="login-title">
-                {isLogin === "Login"
-                  ? "Đăng nhập hệ thống"
-                  : "Đăng ký tài khoản"}
+                {isLogin === "Login" ? "Đăng nhập" : "Đăng ký"}
               </h2>
 
               <form

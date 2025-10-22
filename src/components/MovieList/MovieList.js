@@ -217,7 +217,6 @@ function MovieList() {
                       className="btn buy"
                       onClick={(e) => {
                         e.stopPropagation();
-
                         handleBookNow(film.ID);
                       }}
                     >

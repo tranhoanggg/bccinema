@@ -131,7 +131,7 @@
   text-decoration: underline;
 }
 
-.confirm-btn {
+.bookticket-confirm-btn {
   width: 100%;
   background: linear-gradient(90deg, #006644, #00cc66);
   color: white;
@@ -146,13 +146,13 @@
   letter-spacing: 1px;
 }
 
-.confirm-btn:hover:enabled {
+.bookticket-confirm-btn:hover:enabled {
   background: linear-gradient(90deg, #00cc66, #00ff88);
   box-shadow: 0 0 15px #00ff88;
   transform: scale(1.03);
 }
 
-.confirm-btn:disabled {
+.bookticket-confirm-btn:disabled {
   background: #222;
   color: #777;
   cursor: not-allowed;

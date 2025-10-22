@@ -3,6 +3,7 @@ import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MovieSlider.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 import Slider1 from "../../assets/images/Slider/Slider1.jpg";
 import Slider2 from "../../assets/images/Slider/Slider2.jpg";
@@ -11,13 +12,40 @@ import Slider4 from "../../assets/images/Slider/Slider4.jpg";
 import Slider5 from "../../assets/images/Slider/Slider5.jpg";
 
 function MovieSlider() {
+  const navigate = useNavigate();
   const sliders = [
-    { img: Slider1, title: "TỬ CHIẾN TRÊN KHÔNG" },
-    { img: Slider2, title: "CHỊ NGÃ EM NÂNG" },
-    { img: Slider3, title: "TAY ANH GIỮ MỘT VÌ SAO" },
-    { img: Slider4, title: "MEASURE IN LOVE: NĂM CỦA ANH, NGÀY CỦA EM" },
-    { img: Slider5, title: "CHAINSAW MAN: THE MOVIE - REZE ARC" },
+    { id: 1, img: Slider1, title: "TỬ CHIẾN TRÊN KHÔNG" },
+    { id: 22, img: Slider2, title: "CHỊ NGÃ EM NÂNG" },
+    { id: 9, img: Slider3, title: "TAY ANH GIỮ MỘT VÌ SAO" },
+    {
+      id: null,
+      img: Slider4,
+      title: "MEASURE IN LOVE: NĂM CỦA ANH, NGÀY CỦA EM",
+    },
+    { id: 6, img: Slider5, title: "CHAINSAW MAN: THE MOVIE - REZE ARC" },
   ];
+
+  const handleBookNow = (filmId) => {
+    if (filmId == null) return;
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      // 🔹 Lưu tạm filmId để quay lại sau đăng nhập
+      localStorage.setItem(
+        "redirectAfterLogin",
+        JSON.stringify({
+          path: "/bookticket",
+          state: { filmId },
+        })
+      );
+
+      // 🔹 Chuyển sang trang đăng nhập
+      navigate("/login");
+    } else {
+      // 🔹 Người dùng đã đăng nhập → đi thẳng đến BookTicket
+      navigate("/bookticket", { state: { filmId } });
+    }
+  };
 
   const [index, setIndex] = useState(0);
 
@@ -113,10 +141,21 @@ function MovieSlider() {
               <div className="slider-content">
                 <h2 className="movie-title">{slide.title}</h2>
                 <div className="btn-group">
-                  <button className="movieslider btn btn-success me-2 slider-btn-buy">
+                  <button
+                    className="movieslider btn btn-success me-2 slider-btn-buy"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBookNow(slide.id);
+                    }}
+                  >
                     🎟 MUA VÉ NGAY
                   </button>
-                  <button className="movieslider btn btn-outline-light slider-btn-infor">
+                  <button
+                    className="movieslider btn btn-outline-light slider-btn-infor"
+                    onClick={() => {
+                      if (slide.id != null) navigate(`/film/${slide.id}`);
+                    }}
+                  >
                     THÔNG TIN CHI TIẾT ℹ
                   </button>
                 </div>

@@ -146,20 +146,20 @@ const UpdateProfile = () => {
 
     // Chọn API phù hợp dựa theo loại giao dịch
     if (canceling.type === "Mua vé") {
-      endpoint = `http://localhost:5000/cancel-ticket/${
-        canceling.id[canceling.id.length - 1]
-      }`;
+      endpoint = `http://localhost:5000/cancel-ticket/${canceling.id.substring(
+        canceling.id.lastIndexOf("-") + 1
+      )}`;
     } else if (canceling.type === "Mua đồ ăn") {
-      endpoint = `http://localhost:5000/cancel-goods/${
-        canceling.id[canceling.id.length - 1]
-      }`;
+      endpoint = `http://localhost:5000/cancel-goods/${canceling.id.substring(
+        canceling.id.lastIndexOf("-") + 1
+      )}`;
     } else if (
       canceling.type === "Mua vé (có đồ ăn đi kèm)" ||
       canceling.type === "Mua vé (kèm đồ ăn)"
     ) {
-      endpoint = `http://localhost:5000/cancel-ticket-with-goods/${
-        canceling.id[canceling.id.length - 1]
-      }`;
+      endpoint = `http://localhost:5000/cancel-ticket-with-goods/${canceling.id.substring(
+        canceling.id.lastIndexOf("-") + 1
+      )}`;
     } else {
       alert("Không xác định được loại giao dịch để huỷ!");
       return;
@@ -235,11 +235,17 @@ const UpdateProfile = () => {
               Sau khi huỷ giao dịch, chúng tôi sẽ hoàn trả tiền đơn hàng vào số
               tài khoản bạn đã thanh toán (có khấu trừ 10%).
             </p>
-            <div className="confirm-buttons">
-              <button className="cancel-btn" onClick={closeConfirmPopup}>
+            <div className="updateprofile-confirm-buttons">
+              <button
+                className="updateprofile-cancel-btn"
+                onClick={closeConfirmPopup}
+              >
                 Đóng
               </button>
-              <button className="confirm-btn" onClick={confirmCancel}>
+              <button
+                className="updateprofile-confirm-btn"
+                onClick={confirmCancel}
+              >
                 Đồng ý
               </button>
             </div>
@@ -265,7 +271,7 @@ const UpdateProfile = () => {
             placeholder="Nhập họ và tên"
           />
 
-          <div className="login-radio">
+          <div className="updateprofile-radio">
             <span>Giới tính:</span>
             <input
               type="radio"
