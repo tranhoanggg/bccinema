@@ -1,0 +1,4 @@
+Host: gateway01.ap-southeast-1.prod.aws.tidbcloud.com
+Port: 4000
+User: 3s73bTXUyw9ZXCa.root
+Password: NEIl5VriZe9sBePU

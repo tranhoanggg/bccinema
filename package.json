@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "scripts": {
+    "start:backend": "npm start --prefix backend",
+    "start:frontend": "npm start --prefix frontend",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  }
+}
