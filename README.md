@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# 🎬 BC Cinema - Nền tảng Đặt vé xem phim Trực tuyến
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img width="1920" height="975" alt="image" src="https://github.com/user-attachments/assets/57dae7ba-6fa3-4c64-a609-36529dc49a50" />
 
-## Available Scripts
+<p align="center">
+  <i>
+    <b>Một ứng dụng Full-stack mô phỏng hệ thống rạp chiếu phim chuyên nghiệp, cho phép người dùng xem thông tin phim, đặt vé và mua combo đồ ăn trực tuyến.</b>     </i>
+</p>
 
-In the project directory, you can run:
+🔗 **Live Demo:** [Trải nghiệm Website tại đây](https://bccinema.vercel.app/)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Tính năng nổi bật
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Dành cho Khách hàng (Client-side)
+* **Trải nghiệm UI/UX sống động:** Banner Slider trang chủ với hiệu ứng ánh sáng (Spotlight animation) bằng CSS thuần.
+* **Tra cứu thông tin:** Hiển thị đầy đủ danh sách Phim Đang Chiếu, Phim Sắp Chiếu, thông tin chi tiết (Trailer, Đạo diễn, Diễn viên).
+* **Luồng đặt vé (Booking Flow):** Cho phép người dùng chọn phim, chọn suất chiếu, vị trí ghế ngồi và mua kèm Combo (Đồ ăn/Thức uống).
+* **Quản lý Tài khoản:** Hệ thống Đăng nhập/Đăng ký. Yêu cầu đăng nhập trước khi mua vé (bảo lưu trạng thái đang chọn phim nếu chưa đăng nhập).
 
-### `npm test`
+### Dành cho Quản trị viên (Admin-side) *(Nếu dự án của bạn có phần này)*
+* Quản lý danh sách phim, lịch chiếu, phòng chiếu.
+* Thống kê doanh thu vé và combo.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Công nghệ sử dụng
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Frontend:**
+* **Framework/Library:** React.js
+* **Routing:** React Router DOM
+* **Styling:** CSS thuần (Custom Animations & Layouts)
+* **State Management:** React Hooks (`useState`, `useEffect`, `useRef`)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Backend & Database:**
+* **Môi trường:** Node.js
+* **Framework:** Express.js
+* **Database:** MySQL
+* **Xác thực:** JSON Web Token (JWT)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🚀 Hướng dẫn Cài đặt & Khởi chạy (Local)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Để chạy dự án này trên máy tính cá nhân, bạn cần cài đặt [Node.js](https://nodejs.org/) và làm theo các bước sau:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 1. Clone Repository
+```bash
+git clone (https://github.com/tranhoanggg/bccinema.git
+cd bccinema
+```
+Sau khi đã clone dự án thành công, ở mỗi bước sau hãy mở dự án trong terminal và chạy câu lệnh theo hướng dẫn.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 2. Thiết lập Backend (Server)
+```bash
+cd backend
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 3. Thiết lập Frontend (Client)
+```bash
+cd frontend
+npm install
+```
 
-## Learn More
+### 4. Khởi chạy dự án
+4.1. Khởi chạy từng phần
+```bash
+cd backend
+node server.js
+cd ../frontend
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4.2. Khởi chạy đồng thời
+```bash
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📸 Hình ảnh Dự án
+<img width="1920" height="976" alt="image" src="https://github.com/user-attachments/assets/d5820f75-a4b1-4b5b-bb5a-393aa8526538" />
+<p align="center">
+  <i><b>Trang chủ - Nơi chúng ta thấy ngay những bộ phim đang hot nhất, nhưng bộ phim đang chiếu, những bộ phim sắp ra mắt cùng những combo ưu đã cực hot</b></i>
+</p>
 
-### Code Splitting
+<img width="1920" height="976" alt="image" src="https://github.com/user-attachments/assets/805138ae-7c35-40ff-b409-84576b641dcd" />
+<p align="center">
+  <i><b>Trang Phim - Nơi chúng ta xem đầy đủ danh sách các bộ phim và dễ dàng tìm kiếm bộ phim mình quan tâm</b></i>
+</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<img width="1920" height="974" alt="image" src="https://github.com/user-attachments/assets/a20ee26a-d0f8-4686-8d48-814315cb6784" />
+<p align="center">
+  <i><b>Trang Đồ ăn & thức uống - Cùng nhâm nhi và thuỏng thức bộ phim yêu thích một cách trọn vẹn nhất!</b></i>
+</p>
 
-### Analyzing the Bundle Size
+<img width="1920" height="979" alt="image" src="https://github.com/user-attachments/assets/1728cf12-352f-4775-97f2-782827879b38" />
+<p align="center">
+  <i><b>Trang Quyền lợi - Tìm hiểu những đặc quyền vô cùng hấp dẫn chỉ dành cho hội viên của Best Choice Cinema!</b></i>
+</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<img width="1919" height="979" alt="image" src="https://github.com/user-attachments/assets/7f8dc536-131a-4c8b-b680-d75c27aed183" />
+<p align="center">
+  <i><b>Trang Đăng nhập - Đăng nhập để thanh toán dễ dàng và hưởng các đặc quyền hội viên hấp dẫn!</b></i>
+</p>
 
-### Making a Progressive Web App
+<img width="1920" height="976" alt="image" src="https://github.com/user-attachments/assets/d4ba0174-176d-41df-8b2f-7d17d3500997" />
+<p align="center">
+  <i><b>Cùng khám phá những bất ngờ độc đáo chỉ có tại website Best Choice Cinema!</b></i>
+</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
