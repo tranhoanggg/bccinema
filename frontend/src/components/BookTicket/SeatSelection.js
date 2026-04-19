@@ -130,7 +130,8 @@ function SeatSelection({ filmId, selectedDate, selectedTime, onSeatSelect }) {
       row.map((cell, cIdx) => (rIdx === i && cIdx === j ? "reserved" : cell)),
     );
     setSeats(updatedSeats);
-    setSelectedSeats((prev) => [...prev, { line: i, col: j }]);
+    const newSelectedSeatsList = [...selectedSeats, { line: i, col: j }];
+    setSelectedSeats(newSelectedSeatsList);
     onSeatSelect(selectedRoom, updatedSeats);
 
     // ✅ Chuẩn hóa format ngày theo MySQL

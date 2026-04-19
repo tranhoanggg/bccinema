@@ -43,6 +43,12 @@
   font-size: 1.1rem;
 }
 
+.payment-item .info h5 {
+  color: #00ff88;
+  margin: 0;
+  font-size: 1rem;
+}
+
 .payment-item .info p {
   color: #aaa;
   font-size: 0.85rem;
@@ -309,6 +315,30 @@
   font-size: 1.1rem;
   color: #b8ffdd;
   margin: 0;
+}
+
+.goods-payment-with-ticket-title {
+  font-size: 22px;
+}
+
+.goods-payment-with-ticket-quantity {
+  font-size: 18px;
+}
+
+.goods-payment-with-ticket-goods-title {
+  margin: 15px 0 5px;
+  font-size: 1.2rem;
+}
+
+.divider {
+  border: 1px dashed rgba(0, 255, 100, 0.2);
+  margin: 15px 0;
+}
+
+.goods-payment-with-ticket-total {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 1.2rem;
 }
 
 @keyframes popupSlideDown {

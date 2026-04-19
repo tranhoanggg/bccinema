@@ -20,9 +20,20 @@ function GoodsPayment({
 
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
+  let ticketCount = 0;
+  if (Array.isArray(selectedSeats)) {
+    selectedSeats.forEach((row) => {
+      if (Array.isArray(row)) {
+        row.forEach((seat) => {
+          if (seat === "reserved") ticketCount++;
+        });
+      }
+    });
+  }
+
   // 🔹 Khi load component: lấy toàn bộ sản phẩm và chọn ngẫu nhiên 3 cái
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/goods`)
+    fetch(`http://localhost:5000/goods`)
       .then((res) => res.json())
       .then((data) => {
         // Random 3 ID ngẫu nhiên từ 1 đến 16
@@ -57,14 +68,16 @@ function GoodsPayment({
     selectedTime &&
     selectedRoom &&
     selectedSeats &&
-    selectedSeats.length > 0 &&
+    ticketCount > 0 &&
     selectedPayment &&
     agreed;
 
+  const totalPrice =
+    goodsData.reduce((sum, g) => sum + g.price * g.quantity, 0) +
+    ticketCount * 50000;
+
   const handleConfirm = () => {
-    const total =
-      goodsData.reduce((sum, g) => sum + g.price * g.quantity, 0) +
-      (selectedSeats?.length || 0) * 45000;
+    const total = totalPrice;
 
     const qrText = `${selectedPayment.toUpperCase()}_${user.email}_${total}`;
     setQrValue(qrText);
@@ -75,8 +88,8 @@ function GoodsPayment({
     const goodsPurchased = goodsData
       .filter((g) => g.quantity > 0)
       .map((g) => ({
-        goods_id: g.ID, // ✅ server cần goods_id
-        quantity: g.quantity, // ✅ số lượng
+        goods_id: g.ID,
+        quantity: g.quantity,
       }));
 
     const payload = {
@@ -86,11 +99,11 @@ function GoodsPayment({
       selectedRoom,
       selectedDate,
       selectedTime,
-      paymentMethod: selectedPayment, // ✅ trùng key với backend
-      goods: goodsPurchased, // ✅ định dạng đúng theo server
+      paymentMethod: selectedPayment,
+      goods: goodsPurchased,
     };
 
-    fetch(`${process.env.REACT_APP_API_URL}/complete-bookticket`, {
+    fetch(`http://localhost:5000/complete-bookticket`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -113,6 +126,22 @@ function GoodsPayment({
   return (
     <div className="payment-container">
       <div className="payment-left">
+        {/* SỐ VÉ */}
+        <span className="goods-payment-with-ticket-title">
+          Số ghế đã chọn:{" "}
+        </span>
+        <span className="goods-payment-with-ticket-quantity">
+          {ticketCount}
+        </span>
+
+        <hr className="divider" />
+
+        {/* HEADER */}
+        <h3 className="goods-payment-with-ticket-goods-title">
+          Đồ ăn & Thức uống
+        </h3>
+
+        {/* LIST ĐỒ ĂN */}
         {goodsData.map((item) => (
           <div key={item.ID} className="payment-item">
             <img
@@ -122,6 +151,7 @@ function GoodsPayment({
             <div className="info">
               <h3>{item.name}</h3>
               <p>{item.description}</p>
+              <h5>Giá: {item.price.toLocaleString()}đ</h5>
               <div className="quantity">
                 <button onClick={() => handleQuantityChange(item.ID, -1)}>
                   −
@@ -134,6 +164,11 @@ function GoodsPayment({
             </div>
           </div>
         ))}
+
+        {/* TỔNG GIÁ */}
+        <div className="goods-payment-with-ticket-total">
+          Tổng giá: <strong>{totalPrice.toLocaleString()} VND</strong>
+        </div>
       </div>
 
       <div className="payment-right">
