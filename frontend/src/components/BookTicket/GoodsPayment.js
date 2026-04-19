@@ -33,7 +33,7 @@ function GoodsPayment({
 
   // 🔹 Khi load component: lấy toàn bộ sản phẩm và chọn ngẫu nhiên 3 cái
   useEffect(() => {
-    fetch(`http://localhost:5000/goods`)
+    fetch(`${process.env.REACT_APP_API_URL}/goods`)
       .then((res) => res.json())
       .then((data) => {
         // Random 3 ID ngẫu nhiên từ 1 đến 16
@@ -103,7 +103,7 @@ function GoodsPayment({
       goods: goodsPurchased,
     };
 
-    fetch(`http://localhost:5000/complete-bookticket`, {
+    fetch(`${process.env.REACT_APP_API_URL}/complete-bookticket`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
