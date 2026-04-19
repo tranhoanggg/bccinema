@@ -16,7 +16,6 @@ function GoodsPayment({
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [agreed, setAgreed] = useState(false);
   const [qrValue, setQrValue] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
@@ -111,11 +110,10 @@ function GoodsPayment({
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          setShowPopup(true);
-          setTimeout(() => {
-            setShowPopup(false);
-            setTimeout(() => navigate("/"), 600);
-          }, 3000);
+          alert(
+            "🎉 Thanh toán thành công!\nCảm ơn bạn đã sử dụng dịch vụ của chúng tôi.",
+          );
+          navigate("/");
         } else {
           alert("❌ Có lỗi khi hoàn tất đặt vé!");
         }
@@ -227,16 +225,6 @@ function GoodsPayment({
           </div>
         )}
       </div>
-
-      {/* Popup overlay */}
-      {showPopup && (
-        <div className={`success-overlay ${showPopup ? "active" : ""}`}>
-          <div className={`success-popup ${showPopup ? "" : "hide"}`}>
-            <h2>🎉 Thanh toán thành công!</h2>
-            <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

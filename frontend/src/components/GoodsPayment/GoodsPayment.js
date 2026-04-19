@@ -6,8 +6,6 @@ import "./GoodsPayment.css";
 function GoodsPayment() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [paymentComplete, setPaymentComplete] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
   const { clickedId, cartItems } = location.state || {};
   const [goodsData, setGoodsData] = useState([]);
   const [selectedPayment, setSelectedPayment] = useState("");
@@ -142,15 +140,17 @@ function GoodsPayment() {
       body: JSON.stringify(orderData),
     })
       .then((res) => res.json())
-      .then(() => {
-        setPaymentComplete(true);
-        setShowPopup(true);
-
-        // Sau 2.5s, slideUp + navigate về trang chủ
-        setTimeout(() => {
-          setShowPopup(false);
-          setTimeout(() => navigate("/"), 600);
-        }, 2500);
+      .then((data) => {
+        if (data.success) {
+          // Hiển thị alert thông thường
+          alert(
+            "🎉 Thanh toán thành công!\nCảm ơn bạn đã sử dụng dịch vụ của chúng tôi.",
+          );
+          // Sau khi người dùng bấm OK trên alert, tiến hành chuyển hướng
+          navigate("/");
+        } else {
+          alert("❌ Có lỗi khi hoàn tất đặt vé!");
+        }
       })
       .catch((err) => console.error("Lỗi khi cập nhật thanh toán:", err));
   };
@@ -283,15 +283,6 @@ function GoodsPayment() {
           </div>
         )}
       </div>
-      {/* Popup overlay */}
-      {showPopup && (
-        <div className={`success-overlay ${showPopup ? "active" : ""}`}>
-          <div className={`success-popup ${showPopup ? "" : "hide"}`}>
-            <h2>🎉 Thanh toán thành công!</h2>
-            <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
